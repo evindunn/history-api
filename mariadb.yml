@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    deploy:
+      restart_policy: 
+        condition: on-failure
+        delay: 2s
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - history_db:/var/lib/mysql
+      - ./history.sql.gz:/docker-entrypoint-initdb.d/history.sql.gz
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer:latest
+    deploy:
+      restart_policy: 
+        condition: on-failure
+        delay: 2s
+    ports:
+      - 80:8080
+
+volumes:
+  history_db:
+
