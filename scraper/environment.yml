@@ -1,0 +1,8 @@
+name: wikiscraper
+dependencies:
+  - python=3
+  - beautifulsoup4
+  - lxml
+  - requests
+  - pymysql
+
