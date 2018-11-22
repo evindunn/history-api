@@ -1,0 +1,49 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: History API
+
+host: localhost:10010
+basePath: /
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+
+paths:
+  /event:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: event
+    get:
+      description: Returns events from the history database
+      operationId: event
+      parameters:
+        - name: year
+          in: query
+          description: The year that the event occured
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/EventResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+definitions:
+  EventResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
