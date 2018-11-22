@@ -1,0 +1,85 @@
+openapi: 3.0.0
+
+servers:
+  - description: HistoryAPI Server
+    url: <tbd>
+info:
+  description: Events, Births, and Deaths from History
+  version: "1.0.0"
+  title: HistoryAPI
+  contact:
+    email: emdevsite@gmail.com
+  license:
+    name: Creative Commons Attribution-Share-Alike License 3.0
+    url: 'https://creativecommons.org/licenses/by-sa/3.0/'
+paths:
+  /events:
+    get:
+      summary: searches events
+      operationId: searchEvents
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      parameters:
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up events
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: year
+          description: the year in which the event(s) occured
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          description: bad input parameter
+components:
+  schemas:
+    Event:
+      type: object
+      required:
+        - year
+        - month
+        - day
+        - text
+        - type
+      properties:
+        year:
+          type: integer
+          format: int32
+          example: 1991
+        month:
+          type: integer
+          format: int32
+          example: 1
+        day:
+          type: integer
+          format: int32
+          example: 14
+        text:
+          type: string
+          example: "Something happened on this day in history"
+        type:
+          type: integer
+          format: int32
+          example: 0
