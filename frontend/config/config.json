@@ -1,0 +1,9 @@
+{
+  "production": {
+    "username": "root",
+    "password": "example",
+    "database": "history",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

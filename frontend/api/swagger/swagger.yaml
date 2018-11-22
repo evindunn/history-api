@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: History API
 
-host: localhost:10010
+host: localhost:8080
 basePath: /
 schemes:
   - http
@@ -23,7 +23,7 @@ paths:
           in: query
           description: The year that the event occured
           required: false
-          type: string
+          type: integer
       responses:
         "200":
           description: Success

@@ -12,6 +12,7 @@ services:
     volumes:
       - history_db:/var/lib/mysql
       - ./history.sql.gz:/docker-entrypoint-initdb.d/history.sql.gz
+      - ./max-allowed-packet.cnf:/etc/mysql/conf.d/max-allowed-packet.cnf
     ports:
       - 3306:3306
 

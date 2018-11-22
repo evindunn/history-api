@@ -1,26 +1,33 @@
 'use strict';
 
 const util = require('util');
-
-module.exports = {
-  event: event
-};
+const models = require("../../models");
 
 /*
-  Functions in a127 controllers used for operations should take two parameters:
-
-  Param 1: a handle to the request object
-  Param 2: a handle to the response object
+ * Responds to a request to the /event endpoint
  */
-function event(req, res) {
-  let name = undefined;
+function event(req, res)
+{
+  let year;
 
-  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  if (req.swagger.params != undefined)
+  // variables defined in the Swagger document can be referenced using
+  // req.swagger.params.{parameter_name}
+
+  if (req.swagger.params != undefined && req.swagger.params.year.value != undefined)
   {
-    name = req.swagger.params.year.value || '';
+    year = req.swagger.params.year.value;
+    models.Event.findAll({ where: { year: year } }).then((results, err) => {
+      if (err) { console.error(err); }
+      res.json(results);
+    });
   }
-
-  // this sends back a JSON response which is a single string
-  res.json("Hello, Response!");
+  else
+  {
+    models.Event.findAll().then((results, err) => {
+      if (err) { console.error(err); }
+      res.json(results);
+    });
+  }
 }
+
+module.exports = { event: event };
